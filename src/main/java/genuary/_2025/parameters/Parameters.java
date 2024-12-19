@@ -5,16 +5,39 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static processing.core.PConstants.TAU;
+
 public final class Parameters {
-    public static final long SEED = 20250101;
-    public static final int WIDTH = 1000;
-    public static final int HEIGHT = 1000;
-    public static final float NOISE_SCALE = 1 / 200f;
-    public static final Color BACKGROUND_COLOR = new Color(220);
-    public static final Color STROKE_COLOR = new Color(24, 11, 5, 120);
+    public static final long SEED = 11012025;
+
+    public static final int WIDTH = 2025;
+    public static final int HEIGHT = 2025;
+    public static final int MARGIN = 50;
+    public static final int SMOOTH = 8;
+    public static final float MIN_X = -3;
+    public static final float MAX_X = 3;
+    public static final float MIN_Y = -3;
+    public static final float MAX_Y = 3;
+    public static final float STEP = (MAX_X - MIN_X) / (2.321f * WIDTH);
+    public static final int MINIMUM_VARIATIONS = 3;
+    public static final int MAXIMUM_VARIATIONS = 5;
+    public static final Color BACKGROUND_COLOR = new Color(250);
+    public static final Color STROKE_COLOR = new Color(20, 15);
+
+    public static final float LINEAR_PARAMETER = 1f;
+    public static final float SINUSOIDAL_PARAMETER = 1f;
+    public static final float HYPERBOLIC_PARAMETER = 1f;
+    public static final float PDJ_A_PARAMETER = 0.1f;
+    public static final float PDJ_B_PARAMETER = 1.9f;
+    public static final float PDJ_C_PARAMETER = -0.8f;
+    public static final float PDJ_D_PARAMETER = -1.2f;
+    public static final float PDJ_PARAMETER = 1f;
+    public static final float JULIA_PARAMETER = 1f;
+    public static final float SECH_PARAMETER = 1f;
+
 
     /**
-     * Helper method to extract the constants in order to genuary._2025.save them to a json file
+     * Helper method to extract the constants in order to save them to a json file
      *
      * @return a Map of the constants (name -> value)
      */
@@ -22,14 +45,14 @@ public final class Parameters {
         Map<String, Object> map = new HashMap<>();
 
         Field[] declaredFields = Parameters.class.getDeclaredFields();
-        for(Field field : declaredFields) {
+        for (Field field : declaredFields) {
             map.put(field.getName(), field.get(Parameters.class));
         }
 
         return Collections.singletonMap(Parameters.class.getSimpleName(), map);
     }
 
-    public record Color (float red, float green, float blue, float alpha) {
+    public record Color(float red, float green, float blue, float alpha) {
         public Color(float red, float green, float blue) {
             this(red, green, blue, 255);
         }
